@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Computer Shop Timer System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Computer Shop Timer System</h1>
+    <time id="clock" class="clock"></time>
+  </header>
+
+  <main class="layout">
+    <section class="panel" aria-labelledby="pcTitle">
+      <div class="panel-head">
+        <h2 id="pcTitle">Workstations</h2>
+        <p class="hint">Click a coin to add time. Click a name to rename it.</p>
+      </div>
+      <div class="pc-header" aria-hidden="true">
+        <span>Workstation</span>
+        <span>Status</span>
+        <span>Time left</span>
+        <span>Paid</span>
+        <span>Add time</span>
+        <span></span>
+      </div>
+      <ul id="pcList" class="pc-list"></ul>
+    </section>
+
+    <aside class="side">
+      <section class="panel" aria-labelledby="todayTitle">
+        <div class="panel-head"><h2 id="todayTitle">Today</h2></div>
+        <div class="income">
+          <span>Income</span>
+          <strong id="statIncome"></strong>
+        </div>
+        <dl class="facts">
+          <div><dt>Sessions</dt><dd id="statSessions"></dd></div>
+          <div><dt>PCs in use</dt><dd id="statActive"></dd></div>
+          <div><dt>Average per session</dt><dd id="statAverage"></dd></div>
+        </dl>
+      </section>
+
+      <section class="panel" aria-labelledby="rateTitle">
+        <div class="panel-head"><h2 id="rateTitle">Rate</h2></div>
+        <form id="settings" class="rate">
+          <label for="ratePerHour">Price per hour</label>
+          <div class="money"><i>&#8369;</i><input id="ratePerHour" type="number" min="1" step="1" required></div>
+          <p id="rateHint" class="hint"></p>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="logTitle">
+        <div class="panel-head">
+          <h2 id="logTitle">Sales log</h2>
+          <button id="clearLog" class="link" type="button">Clear</button>
+        </div>
+        <div class="log-wrap">
+          <table>
+            <thead>
+              <tr><th>Time</th><th>PC</th><th>Added</th><th class="num">Amount</th></tr>
+            </thead>
+            <tbody id="salesRows"></tbody>
+          </table>
+          <p id="salesEmpty" class="empty">No coins inserted yet today.</p>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <div id="toast" class="toast" role="status" hidden>
+    <span id="toastMessage"></span>
+    <button id="toastUndo" type="button">Undo</button>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
