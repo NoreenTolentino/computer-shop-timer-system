@@ -2,7 +2,7 @@
 
 A coin-operated timer system for a computer rental shop (piso net style), built with HTML, CSS, and JavaScript.
 
-**Live Site:** [https://your-username.github.io/computer-shop-timer-system/]
+**Live Site:**  https://noreentolentino.github.io/computer-shop-timer-system/
 
 ## Features
 
