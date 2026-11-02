@@ -18,21 +18,3 @@ A coin-operated timer system for a computer rental shop (piso net style), built 
 ## How billing works
 
 Time is prepaid. Each coin adds time based on the hourly rate (at 10 pesos per hour, 1 peso adds 6 minutes). Time cannot be paused, and income is counted when coins are inserted.
-
-## Run locally
-
-The app uses ES modules, so serve the folder with a static server such as the VS Code Live Server extension.
-
-## Project structure
-
-```
-computer-shop-timer-system/
-├── index.html
-├── css/style.css
-└── js/
-    ├── app.js
-    ├── billing.js
-    ├── render.js
-    ├── storage.js
-    └── utils.js
-```
