@@ -11,13 +11,18 @@ import {
 import { showToast } from './toast.js';
 
 const TICK_INTERVAL_MS = 1000;
+const DEFAULT_SHOP_NAME = 'Computer Shop';
 
 const state = loadState();
 let renderedStatuses = '';
 
 const findPc = (id) => state.pcs.find((pc) => pc.id === id);
 const snapshotStatuses = () => state.pcs.map((pc) => getPcStatus(pc)).join();
-const snapshotPc = (pc) => ({ endsAt: pc.endsAt, sessionPaid: pc.sessionPaid });
+const snapshotPc = (pc) => ({
+  endsAt: pc.endsAt,
+  sessionPaid: pc.sessionPaid,
+  sessionTotalMs: pc.sessionTotalMs,
+});
 
 function refresh() {
   renderAll(state);
@@ -45,8 +50,7 @@ function insertCoin(pc, amount) {
 
 function endSession(pc) {
   const previous = snapshotPc(pc);
-  pc.endsAt = null;
-  pc.sessionPaid = 0;
+  Object.assign(pc, { endsAt: null, sessionPaid: 0, sessionTotalMs: 0 });
   persistAndRefresh();
 
   showToast(`${pc.name} session ended`, () => {
@@ -55,7 +59,7 @@ function endSession(pc) {
   });
 }
 
-function handleListClick(event) {
+function handleGridClick(event) {
   const coin = event.target.closest('button[data-amount]');
   if (coin) return insertCoin(findPc(coin.dataset.id), Number(coin.dataset.amount));
 
@@ -63,20 +67,25 @@ function handleListClick(event) {
   if (end) endSession(findPc(end.dataset.id));
 }
 
-function handleListChange(event) {
-  if (!event.target.matches('.pc-name')) return;
+function handleGridChange(event) {
+  if (!event.target.matches('.station-name')) return;
 
   const name = event.target.value.trim();
   if (name) findPc(event.target.dataset.id).name = name;
   persistAndRefresh();
 }
 
-function handleSettingsChange() {
+function handleRateChange() {
   const ratePerHour = Number($('#ratePerHour').value);
-
-  if (ratePerHour > 0) state.settings = { ratePerHour };
+  if (ratePerHour > 0) state.settings.ratePerHour = ratePerHour;
   fillSettings(state.settings);
   persistAndRefresh();
+}
+
+function handleShopNameChange() {
+  state.settings.shopName = $('#shopName').value.trim() || DEFAULT_SHOP_NAME;
+  fillSettings(state.settings);
+  saveState(state);
 }
 
 function clearTodayLog() {
@@ -90,9 +99,9 @@ function clearTodayLog() {
 }
 
 function tick() {
-  const isRenaming = document.activeElement?.matches('.pc-name');
+  const isEditing = document.activeElement?.matches('.station-name, #shopName');
 
-  if (snapshotStatuses() !== renderedStatuses && !isRenaming) refresh();
+  if (snapshotStatuses() !== renderedStatuses && !isEditing) refresh();
   else updateTimers(state);
 
   renderClock();
@@ -103,9 +112,10 @@ function init() {
   refresh();
   renderClock();
 
-  $('#pcList').addEventListener('click', handleListClick);
-  $('#pcList').addEventListener('change', handleListChange);
-  $('#settings').addEventListener('change', handleSettingsChange);
+  $('#stationGrid').addEventListener('click', handleGridClick);
+  $('#stationGrid').addEventListener('change', handleGridChange);
+  $('#settings').addEventListener('change', handleRateChange);
+  $('#shopName').addEventListener('change', handleShopNameChange);
   $('#clearLog').addEventListener('click', clearTodayLog);
 
   setInterval(tick, TICK_INTERVAL_MS);

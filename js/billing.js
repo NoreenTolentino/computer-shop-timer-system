@@ -11,6 +11,9 @@ export const getTimeForAmount = (amount, ratePerHour) =>
 export const getRemaining = (pc, now = Date.now()) =>
   pc.endsAt === null ? 0 : Math.max(pc.endsAt - now, 0);
 
+export const getProgress = (pc, now = Date.now()) =>
+  pc.sessionTotalMs > 0 ? Math.min((getRemaining(pc, now) / pc.sessionTotalMs) * 100, 100) : 0;
+
 export function getPcStatus(pc, now = Date.now()) {
   if (pc.endsAt === null) return 'available';
 
@@ -26,8 +29,10 @@ export function addTime(pc, amount, ratePerHour, now = Date.now()) {
 
   if (isNewSession) {
     pc.sessionPaid = 0;
+    pc.sessionTotalMs = addedMs;
     pc.endsAt = now + addedMs;
   } else {
+    pc.sessionTotalMs += addedMs;
     pc.endsAt += addedMs;
   }
 

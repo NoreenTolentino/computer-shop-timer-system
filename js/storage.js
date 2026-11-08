@@ -1,6 +1,6 @@
-const STORAGE_KEY = 'pc-timer-v3';
+const STORAGE_KEY = 'pc-timer-v4';
 const WORKSTATION_COUNT = 8;
-const DEFAULT_SETTINGS = { ratePerHour: 10 };
+const DEFAULT_SETTINGS = { ratePerHour: 10, shopName: 'Computer Shop' };
 
 function createDefaultState() {
   return {
@@ -10,6 +10,7 @@ function createDefaultState() {
       name: `PC ${String(index + 1).padStart(2, '0')}`,
       endsAt: null,
       sessionPaid: 0,
+      sessionTotalMs: 0,
     })),
     sales: [],
   };

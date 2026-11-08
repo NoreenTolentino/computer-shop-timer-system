@@ -8,64 +8,60 @@
 </head>
 <body>
   <header class="topbar">
-    <h1>Computer Shop Timer System</h1>
+    <div class="brand">
+      <span class="mark" aria-hidden="true">CS</span>
+      <div>
+        <input id="shopName" class="shop-name" maxlength="28" aria-label="Shop name">
+        <p>Timer System</p>
+      </div>
+    </div>
     <time id="clock" class="clock"></time>
   </header>
 
   <main class="layout">
-    <section class="panel" aria-labelledby="pcTitle">
-      <div class="panel-head">
-        <h2 id="pcTitle">Workstations</h2>
-        <p class="hint">Click a coin to add time. Click a name to rename it.</p>
-      </div>
-      <div class="pc-header" aria-hidden="true">
-        <span>Workstation</span>
-        <span>Status</span>
-        <span>Time left</span>
-        <span>Paid</span>
-        <span>Add time</span>
-        <span></span>
-      </div>
-      <ul id="pcList" class="pc-list"></ul>
-    </section>
-
-    <aside class="side">
-      <section class="panel" aria-labelledby="todayTitle">
-        <div class="panel-head"><h2 id="todayTitle">Today</h2></div>
-        <div class="income">
-          <span>Income</span>
-          <strong id="statIncome"></strong>
+    <div class="main-col">
+      <section class="hero" aria-label="Today's performance">
+        <div class="hero-top">
+          <div class="revenue">
+            <span>Today's revenue</span>
+            <strong id="statIncome"></strong>
+          </div>
+          <dl class="kpis">
+            <div><dt>Sessions</dt><dd id="statSessions"></dd></div>
+            <div><dt>In use</dt><dd id="statActive"></dd></div>
+            <div><dt>Avg. per session</dt><dd id="statAverage"></dd></div>
+          </dl>
         </div>
-        <dl class="facts">
-          <div><dt>Sessions</dt><dd id="statSessions"></dd></div>
-          <div><dt>PCs in use</dt><dd id="statActive"></dd></div>
-          <div><dt>Average per session</dt><dd id="statAverage"></dd></div>
-        </dl>
+        <div class="chart" role="img" aria-label="Revenue by hour">
+          <div id="bars" class="bars"></div>
+          <div class="axis"><span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span><span>11 PM</span></div>
+        </div>
       </section>
 
-      <section class="panel" aria-labelledby="rateTitle">
-        <div class="panel-head"><h2 id="rateTitle">Rate</h2></div>
-        <form id="settings" class="rate">
-          <label for="ratePerHour">Price per hour</label>
-          <div class="money"><i>&#8369;</i><input id="ratePerHour" type="number" min="1" step="1" required></div>
-          <p id="rateHint" class="hint"></p>
-        </form>
+      <section aria-labelledby="stationsTitle">
+        <div class="section-head">
+          <div>
+            <h2 id="stationsTitle">Workstations</h2>
+            <p class="hint">Insert a coin to start or extend a session.</p>
+          </div>
+          <form id="settings" class="rate">
+            <label for="ratePerHour">Rate per hour</label>
+            <div class="money"><i>&#8369;</i><input id="ratePerHour" type="number" min="1" step="1" required></div>
+            <p id="rateHint" class="hint"></p>
+          </form>
+        </div>
+        <div id="stationGrid" class="station-grid"></div>
       </section>
+    </div>
 
-      <section class="panel" aria-labelledby="logTitle">
-        <div class="panel-head">
-          <h2 id="logTitle">Sales log</h2>
+    <aside class="rail">
+      <section class="card" aria-labelledby="activityTitle">
+        <div class="card-head">
+          <h2 id="activityTitle">Activity</h2>
           <button id="clearLog" class="link" type="button">Clear</button>
         </div>
-        <div class="log-wrap">
-          <table>
-            <thead>
-              <tr><th>Time</th><th>PC</th><th>Added</th><th class="num">Amount</th></tr>
-            </thead>
-            <tbody id="salesRows"></tbody>
-          </table>
-          <p id="salesEmpty" class="empty">No coins inserted yet today.</p>
-        </div>
+        <ul id="activity" class="activity"></ul>
+        <p id="activityEmpty" class="empty">No coins inserted yet today.</p>
       </section>
     </aside>
   </main>
