@@ -2,7 +2,11 @@
 
 A coin-operated timer system for a computer rental shop (piso net style), built with HTML, CSS, and JavaScript.
 
+<<<<<<< HEAD
 **Live preview:**
+=======
+**Live Site:**  https://noreentolentino.github.io/computer-shop-timer-system/
+>>>>>>> 70b62e86f45c9563fd141acd10ecbbde487a8fd0
 
 ## Features
 
@@ -19,7 +23,10 @@ A coin-operated timer system for a computer rental shop (piso net style), built 
 ## How billing works
 
 Time is prepaid. Each coin adds time based on the hourly rate (at 10 pesos per hour, 1 peso adds 6 minutes). Time cannot be paused, and income is counted when coins are inserted.
+<<<<<<< HEAD
 
 ## Run locally
 
 The app uses ES modules, so serve the folder with a static server such as the VS Code Live Server extension.
+=======
+>>>>>>> 70b62e86f45c9563fd141acd10ecbbde487a8fd0
